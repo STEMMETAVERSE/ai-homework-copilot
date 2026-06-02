@@ -16,31 +16,24 @@ st.title("📚 AI Homework Copilot")
 st.info(
     "Upload homework → OCR extracts text → AI explains step-by-step"
 )
-
 # =========================
 # IMAGE PREPROCESSING
 # =========================
-
 def preprocess_image(image):
     image = ImageOps.grayscale(image)
     enhancer = ImageEnhance.Contrast(image)
     image = enhancer.enhance(2.0)
     return image
-
- 
 # =========================
 # OCR FUNCTION
 # =========================
-
 def extract_text(image):
     return pytesseract.image_to_string(
         image,
         config="--psm 6"    )
-
 # =========================
 # AI TUTOR FUNCTION
 # =========================
-
 def get_tutor_response(question):
     prompt = f"""
 You are an expert tutor.
@@ -69,16 +62,13 @@ Question:
         temperature=0.4
     )
     return response.choices[0].message.content
- 
 # =========================
 # FILE UPLOAD
 # =========================
-
 uploaded_file = st.file_uploader(
     "Upload Homework Image",
     type=["jpg", "jpeg", "png"]
 )
-
 # =========================
 # MAIN PIPELINE
 # =========================
@@ -104,11 +94,9 @@ if uploaded_file:
             st.warning(
                 "No readable text detected."
             )
-
 # =========================
 # EDIT OCR TEXT
 # =========================
-
 if "ocr_text" in st.session_state:
     edited_text = st.text_area(
         "✏️ Edit OCR Text (Optional)",
@@ -131,11 +119,9 @@ if "ocr_text" in st.session_state:
                 "🧠 AI Tutor Explanation"
             )
             st.write(answer)
-
 # =========================
 # MANUAL MODE
 # =========================
-
 st.divider()
 
 st.subheader("⌨️ Manual Homework Question")
